@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pengaduan Warga</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f9f4;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #6abf69;
+            color: #fff;
+            text-align: center;
+            padding: 25px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.8em;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            padding: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e3eee3;
+        }
+
+        th {
+            background: #e9f6ec;
+            color: #1b4d1b;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        tr:hover {
+            background: #f1faf1;
+        }
+
+        .status {
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 6px;
+            text-align: center;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+
+        .status.BARU {
+            background: #d8efd8;
+            color: #155715;
+        }
+
+        .status.DIPROSES {
+            background: #fff7d1;
+            color: #826a00;
+        }
+
+        .status.SELESAI {
+            background: #d9f7e3;
+            color: #1b4d1b;
+        }
+
+        .empty {
+            text-align: center;
+            color: #555;
+            padding: 40px 0;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .judul {
+            font-weight: 500;
+            color: #155715;
+        }
+
+        .tanggal {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Daftar Pengaduan Warga</h1>
+    </header>
+
+    <div class="container">
+        {% if pengaduan %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Judul</th>
+                        <th>Deskripsi</th>
+                        <th>Status</th>
+                        <th>Tanggal Lapor</th>
+                        <th>Pelapor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in pengaduan %}
+                        <tr>
+                            <td class="judul">{{ item.judul }}</td>
+                            <td>{{ item.deskripsi|truncatechars:60 }}</td>
+                            <td><span class="status {{ item.status }}">{{ item.status }}</span></td>
+                            <td class="tanggal">{{ item.tanggal_lapor|date:"d M Y, H:i" }}</td>
+                            <td>{{ item.pelapor.nama_lengkap }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="empty">Belum ada pengaduan yang tercatat.</div>
+        {% endif %}
+    </div>
+
+    <footer>
+        &copy; {{ now|date:"Y" }} Kelurahan Data Center
+    </footer>
+</body>
+</html>
