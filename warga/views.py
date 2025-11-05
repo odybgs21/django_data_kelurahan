@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Warga, Pengaduan
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import WargaForm, PengaduanForm
 
@@ -15,19 +15,46 @@ class WargaDetailView(DetailView):
     template_name = 'warga/warga_detail.html'
     context_object_name = 'warga'
 
+class WargaCreateView(CreateView):
+    model = Warga
+    form_class = WargaForm
+    template_name = 'warga/warga_form.html'
+    success_url = reverse_lazy('warga-list')
+
+class WargaUpdateView(UpdateView):
+    model = Warga
+    form_class = WargaForm
+    template_name = 'warga/warga_form.html'
+    success_url = reverse_lazy('warga-list')
+
 class PengaduanListView(ListView):
     model = Pengaduan
     template_name = 'warga/pengaduan_list.html'
     context_object_name = 'pengaduan'
 
-class WargaCreateView(CreateView):
-    model = Warga
-    form_class = WargaForm
-    template_name = 'warga/warga_form.html'
-    success_url = reverse_lazy('warga_list')
+class PengaduanDetailView(DetailView):
+    model = Pengaduan
+    template_name = 'warga/pengaduan_detail.html'
+    context_object_name = 'pengaduan'
 
 class PengaduanCreateView(CreateView):
     model = Pengaduan
     form_class = PengaduanForm
     template_name = 'warga/pengaduan_form.html'
-    success_url = reverse_lazy('pengaduan_list')
+    success_url = reverse_lazy('pengaduan-list')
+
+class PengaduanUpdateView(UpdateView):
+    model = Pengaduan
+    form_class = PengaduanForm
+    template_name = 'warga/pengaduan_form.html'
+    success_url = reverse_lazy('pengaduan-list')
+
+class WargaDeleteView(DeleteView):
+    model = Warga
+    template_name = 'warga/warga_confirm_delete.html'
+    success_url = reverse_lazy('warga-list')
+
+class PengaduanDeleteView(DeleteView):
+    model = Pengaduan
+    template_name = 'warga/pengaduan_confirm_delete.html'
+    success_url = reverse_lazy('pengaduan-list')   

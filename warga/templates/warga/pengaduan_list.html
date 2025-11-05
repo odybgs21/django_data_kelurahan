@@ -81,6 +81,17 @@
             background: #f6fbf7;
         }
 
+        td a {
+            text-decoration: none;
+            color: #1d4d1d;
+            font-weight: 500;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+            color: #145c2c;
+        }
+
         .status {
             padding: 6px 12px;
             border-radius: 8px;
@@ -116,6 +127,39 @@
             color: #555;
             font-size: 0.9em;
         }
+
+        .actions-cell {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.8em;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .action-btn.edit {
+            background-color: #e0eafc;
+            color: #3f51b5;
+            border-color: #c5d4f8;
+        }
+
+        .action-btn.delete {
+            background-color: #fde2e2;
+            color: #c62828;
+            border-color: #f8c5c5;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
     </style>
 </head>
 <body>
@@ -124,7 +168,7 @@
 
 <div class="top-actions">
     <a href="javascript:history.back()" class="btn back">⬅ Kembali</a>
-    <a href="{% url 'pengaduan_tambah' %}" class="btn">+ Tambah Pengaduan Baru</a>
+    <a href="{% url 'pengaduan-tambah' %}" class="btn">+ Tambah Pengaduan Baru</a>
 </div>
 
 <div class="container">
@@ -137,16 +181,23 @@
                     <th>Status</th>
                     <th>Tanggal Lapor</th>
                     <th>Pelapor</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in pengaduan %}
                 <tr>
-                    <td>{{ item.judul }}</td>
+                    <td>
+                        <a href="{% url 'pengaduan-detail' item.pk %}">{{ item.judul }}</a>
+                    </td>
                     <td>{{ item.deskripsi|truncatechars:60 }}</td>
                     <td><span class="status {{ item.status }}">{{ item.status }}</span></td>
                     <td>{{ item.tanggal_lapor|date:"d M Y, H:i" }}</td>
                     <td>{{ item.pelapor.nama_lengkap }}</td>
+                    <td class="actions-cell">
+                        <a href="{% url 'pengaduan-edit' item.pk %}" class="action-btn edit">Edit</a>
+                        <a href="{% url 'pengaduan-hapus' item.pk %}" class="action-btn delete">Hapus</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

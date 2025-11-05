@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Hapus Pengaduan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f9f4;
+            color: #222;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .confirm-box {
+            max-width: 500px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .confirm-box h1 {
+            margin-top: 0;
+            font-size: 1.6em;
+            color: #d32f2f; /* Warna merah untuk bahaya */
+            font-weight: 600;
+        }
+
+        .confirm-box p {
+            font-size: 1.05em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .confirm-box p strong {
+            color: #1b4d1b;
+            font-weight: 600;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger {
+            background: #e53935;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c62828;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #bdbdbd;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirm-box">
+        <h1>Konfirmasi Hapus</h1>
+        <p>Apakah Anda yakin ingin menghapus pengaduan dengan judul: <br><strong>"{{ object.judul }}"</strong>?</p>
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <div class="actions">
+                <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                <a href="javascript:history.back()" class="btn btn-secondary">Batal</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

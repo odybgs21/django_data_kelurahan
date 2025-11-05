@@ -123,8 +123,8 @@
     <header>
         <h1>Daftar Warga Kelurahan</h1>
         <div class="nav-buttons">
-            <a href="{% url 'warga_tambah' %}">＋ Tambah Warga Baru</a>
-            <a href="{% url 'pengaduan_list' %}">📄 Lihat Pengaduan Warga</a>
+            <a href="{% url 'warga-tambah' %}">＋ Tambah Warga Baru</a>
+            <a href="{% url 'pengaduan-list' %}">📄 Lihat Pengaduan Warga</a>
         </div>
     </header>
 
@@ -133,7 +133,7 @@
             {% for warga in object_list %}
                 <li>
                     <div class="warga-name">
-                        <a href="{% url 'warga_detail' warga.pk %}">
+                        <a href="{% url 'warga-detail' warga.pk %}">
                             {{ warga.nama_lengkap }}
                         </a>
                     </div>
