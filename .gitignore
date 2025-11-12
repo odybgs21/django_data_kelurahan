@@ -8,8 +8,11 @@ ENV/
 
 # Python
 __pycache__/
+datakelurahan/__pycache__
 *.pyc
 *.pyo
 *.pyd
 .Python
 .ipynb_checkpoints
+data_kelurahan/__pycache__/
+warga/__pycache__/
