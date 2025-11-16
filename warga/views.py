@@ -6,6 +6,8 @@ from .forms import WargaForm, PengaduanForm
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from .serializers import WargaSerializer, PengaduanSerializer
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 # Create your views here.
 class WargaListView(ListView):
@@ -75,7 +77,16 @@ class PengaduanDeleteView(DeleteView):
 class WargaViewSet(viewsets.ModelViewSet):
     queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['nama_lengkap', 'nik', 'alamat']
+    ordering_fields = ['nama_lengkap', 'tanggal_registrasi']
+
 
 class PengaduanViewSet(viewsets.ModelViewSet):
     queryset = Pengaduan.objects.all().order_by('-tanggal_lapor')
     serializer_class = PengaduanSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['judul', 'deskripsi']
+    ordering_fields = ['tanggal_lapor', 'status']
